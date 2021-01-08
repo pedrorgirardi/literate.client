@@ -37,7 +37,7 @@
   ;; -- Code.
 
   (literate/view
-   (literate/code (slurp (io/resource "literate/core.clj"))))
+   (literate/code (slurp (io/resource "literate/client/core.clj"))))
 
 
   ;; -- Leaflet.
@@ -168,7 +168,7 @@
     (literate/hiccup
      [:span.p-2.text-lg "Code Widget"])
 
-    (literate/code (slurp (io/resource "literate/core.clj")))
+    (literate/code (slurp (io/resource "literate/client/core.clj")))
 
     (literate/hiccup
      [:span.p-2.text-lg "Leaflet Widget"])
