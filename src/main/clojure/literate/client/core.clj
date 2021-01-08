@@ -20,9 +20,9 @@
   "Sends a transact event to the client."
   [data]
   (http/post
-   "http://localhost:8080/api/v1/transact"
-   {:body
-    (transit-encode data)}))
+    "http://localhost:8080/api/v1/transact"
+    {:body
+     (transit-encode data)}))
 
 (defn view [& widgets]
   (transact widgets))
