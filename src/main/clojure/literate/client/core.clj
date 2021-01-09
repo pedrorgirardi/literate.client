@@ -18,14 +18,14 @@
 
 (defn transact
   "Sends a transact event to the client."
-  [data]
+  [client data]
   (http/post
-    "http://localhost:8080/api/v1/transact"
+    (str (:url client "http://localhost:8118") "/api/v1/transact")
     {:body
      (transit-encode data)}))
 
-(defn view [& widgets]
-  (transact widgets))
+(defn view [client & widgets]
+  (transact client widgets))
 
 (defn row
   "Returns a Row (horizontal) layout entity."
