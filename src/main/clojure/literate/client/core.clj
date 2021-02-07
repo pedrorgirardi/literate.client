@@ -81,13 +81,13 @@
 (defn html
   "Returns an Html Widget entity."
   [html]
-  #:widget {:uuid (str (UUID/randomUUID))
-            :type :widget.type/html
-            :html html})
+  {:widget/uuid (str (UUID/randomUUID))
+   :widget/type :widget.type/html
+   :widget.html/src html})
 
 (defn hiccup
   "Returns a Hiccup Widget entity."
   [hiccup]
-  #:widget {:uuid (str (UUID/randomUUID))
-            :type :widget.type/hiccup
-            :html (rum.server-render/render-static-markup hiccup)})
+  {:widget/uuid (str (UUID/randomUUID))
+   :widget/type :widget.type/html
+   :widget.html/src (rum.server-render/render-static-markup hiccup)})
