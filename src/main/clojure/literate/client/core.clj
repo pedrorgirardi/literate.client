@@ -43,19 +43,30 @@
    :widget/type :widget.type/column
    :widget/children (map #(assoc % :widget/parent -1) children)})
 
-(defn vega-lite
-  "Returns a Vega Lite Widget entity."
-  [vega-lite-spec]
-  #:widget {:uuid (str (UUID/randomUUID))
-            :type :widget.type/vega-lite
-            :vega-lite-spec vega-lite-spec})
+(defn vega-emded
+  "Returns a Vega Embed Widget entity."
+  [spec]
+  {:widget/uuid (str (UUID/randomUUID))
+   :widget/type :widget.type/vega-embed
+   :widget.vega-embed/spec spec})
 
-(defn code
-  "Returns a Code Widget entity."
-  [form]
-  #:widget {:uuid (str (UUID/randomUUID))
-            :type :widget.type/code
-            :code (str form)})
+(defn vega-lite
+  "Returns a Vega Embed Widget entity."
+  [vega-lite-spec]
+  (vega-emded (merge {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"}
+                     vega-lite-spec)))
+
+(defn codemirror
+  "Returns a Codemirror Widget entity."
+  [^String value & [{:keys [width height mode lineNumbers]}]]
+  (merge {:widget/uuid (str (UUID/randomUUID))
+          :widget/type :widget.type/codemirror
+          :widget.codemirror/mode (or mode "clojure")
+          :widget.codemirror/value (or value "")
+          :widget.codemirror/lineNumbers (or lineNumbers false)}
+
+         (some->> width (hash-map :widget.codemirror/width))
+         (some->> height (hash-map :widget.codemirror/height))))
 
 (defn leaflet
   "Returns a Leaflet Widget entity."
