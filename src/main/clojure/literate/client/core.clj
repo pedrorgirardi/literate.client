@@ -53,7 +53,7 @@
 (defn vega-lite
   "Returns a Vega Embed Widget entity."
   [vega-lite-spec]
-  (vega-emded (merge {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"}
+  (vega-emded (merge {"$schema" "https://vega.github.io/schema/vega-lite/v5.json"}
                      vega-lite-spec)))
 
 (defn codemirror
