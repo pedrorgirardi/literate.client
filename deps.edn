@@ -1,17 +1,17 @@
 {:paths ["src/main/clojure" "src/main/resources"]
 
  :deps
- {org.clojure/clojure {:mvn/version "1.10.1"}
-  http-kit/http-kit {:mvn/version "2.5.0"}
+ {org.clojure/clojure {:mvn/version "1.11.0-alpha1"}
+  http-kit/http-kit {:mvn/version "2.5.3"}
   hiccup/hiccup {:mvn/version "1.0.5"}
-  rum/rum {:mvn/version "0.12.3" :exclusions [cljsjs/react cljsjs/react-dom]}
+  rum/rum {:mvn/version "0.12.4" :exclusions [cljsjs/react cljsjs/react-dom]}
   com.cognitect/transit-clj {:mvn/version "1.0.324"}}
 
  :aliases
  {:dev
   {:extra-paths ["src/dev/clojure" "src/dev/resources"]
    :extra-deps {org.clojure/tools.namespace {:mvn/version "1.1.0"}
-                org.clojure/data.json {:mvn/version "1.0.0"}}}
+                org.clojure/data.json {:mvn/version "2.0.1"}}}
   
   :test
   {:extra-paths ["src/test/clojure" "src/test/resources"]}}}
