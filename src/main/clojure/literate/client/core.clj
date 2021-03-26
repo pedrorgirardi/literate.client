@@ -88,3 +88,14 @@
   {:widget/uuid (str (UUID/randomUUID))
    :widget/type :widget.type/html
    :widget.html/src (rum.server-render/render-static-markup hiccup)})
+
+(defn table
+  "Returns a Table Widget entity."
+  [{:keys [height width row-height columns rows]}]
+  {:widget/uuid (str (UUID/randomUUID))
+   :widget/type :widget.type/table
+   :widget.table/height (or height 400)
+   :widget.table/width (or width 600)
+   :widget.table/row-height (or row-height 50)
+   :widget.table/rows rows
+   :widget.table/columns columns})
