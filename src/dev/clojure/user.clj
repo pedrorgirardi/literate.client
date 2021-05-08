@@ -6,21 +6,21 @@
             [org.httpkit.client :as http]
             [hiccup.core :as hiccup]
 
-            [literate.client.core :as literate]))
+            [literate.client.core :as l]))
+
+;; Use default client.
+(def l (partial l/transact nil))
 
 (comment
 
   (refresh)
 
 
-  (def view (partial literate/view {:url "http://localhost:8118"}))
-
   ;; -- Vega Lite.
 
-  (view
-    (literate/vega-lite
-      {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"
-       :description "A simple bar chart with embedded data."
+  (l
+    (l/vega-lite
+      {:description "A simple bar chart with embedded data."
        :data {:values
               [{:a "A" :b 28}
                {:a "B" :b 55}
@@ -37,42 +37,20 @@
                   :y {:field "b"
                       :type "quantitative"}}}))
 
-  ;; -- Code.
+  ;; -- Codemirror.
 
-  (view (literate/code (slurp (io/resource "literate/client/core.clj"))))
-
-
-  ;; -- Leaflet.
-
-  (view (literate/leaflet {}))
-
-  (def geojson (json/read (io/reader "src/dev/resources/points.geojson")))
-
-  (def sample (update geojson "features" #(take 10 %)))
-
-  (def center (vec (reverse (get-in geojson ["features" 0 "geometry" "coordinates"]))))
-
-  (def leaflet-widget
-    (literate/leaflet
-      {:style {:height "600px"}
-       :center center
-       :zoom 10
-       :geojson (update geojson "features" #(take 10 %))}))
-
-  (view leaflet-widget)
-
-  (view (merge leaflet-widget {:widget/geojson (update geojson "features" #(take 1 %))}))
+  (l (l/codemirror (slurp (io/resource "literate/client/core.clj"))))
 
 
   ;; -- Markdown.
 
-  (view (literate/markdown "**Welcome to Literate**\n\nEval some forms to get started!"))
+  (l (l/markdown "# Welcome to Literate\n\nEval some forms to get started!"))
 
 
   ;; -- HTML.
 
-  (view
-    (literate/html
+  (l
+    (l/html
       (hiccup/html
         [:div.bg-white.p-3
          [:h1.text-6xl "Hello from Hiccup"]
@@ -81,13 +59,12 @@
 
   ;; -- Row.
 
-  (view
-    (literate/row
+  (l
+    (l/row
       {}
-      (literate/leaflet {})
-      (literate/vega-lite
-        {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"
-         :description "A simple bar chart with embedded data."
+      (l/codemirror (slurp (io/resource "literate/client/core.clj")))
+      (l/vega-lite
+        {:description "A simple bar chart with embedded data."
          :data {:url "https://vega.github.io/editor/data/stocks.csv"}
          :transform [{"filter" "datum.symbol==='GOOG'"}]
          :mark "line"
@@ -99,11 +76,11 @@
 
   ;; -- Column.
 
-  (view
-    (literate/column
+  (l
+    (l/column
       {}
-      (literate/leaflet {})
-      (literate/vega-lite
+      (l/codemirror (slurp (io/resource "literate/client/core.clj")))
+      (l/vega-lite
         {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"
          :description "A simple bar chart with embedded data."
          :data {:url "https://vega.github.io/editor/data/stocks.csv"}
@@ -117,57 +94,49 @@
 
   ;; -- Welcome.
 
-  (view
-    (literate/column
-      {}
-      (literate/hiccup
-        [:div.flex.flex-col.space-y-3.bg-white.p-3.font-light
-         [:h1.text-3xl
-          {:style {:font-family "Cinzel"}}
-          "Welcome to Literate"]
+  (l
+    (l/hiccup
+      [:div.flex.flex-col.space-y-3.bg-white.p-3.font-light
+       [:h1.text-3xl
+        {:style {:font-family "Cinzel"}}
+        "Welcome to Literate"]
 
-         [:p.font-semibold
-          "Literate is a Clojure & ClojureScript application which you can use to visualize data."]
+       [:p.font-semibold
+        "Literate is a Clojure & ClojureScript application which you can use to visualize data."]
 
-         [:p.mt-4
-          "This interface that you're looking at it's called a " [:span.font-bold "Widget"]
-          ", and you can create one from a Clojure REPL."]
+       [:p.mt-4
+        "This interface that you're looking at it's called a " [:span.font-bold "Widget"]
+        ", and you can create one from a Clojure REPL."]
 
-         [:p.mt-2.mb1 "There are a few different types of Widgets that are supported:"]
+       [:p.mt-2.mb1 "There are a few different types of Widgets that are supported:"]
 
-         [:ul.list-disc.list-inside.ml-2
-          [:li "Code"]
-          [:li "Markdown"]
-          [:li "Hiccup"]
-          [:li "Vega Lite"]
-          [:li "Leaflet"]
-          [:li "Column layout"]
-          [:li "Row layout"]]])
+       [:ul.list-disc.list-inside.ml-2
+        [:li "Code"]
+        [:li "Markdown"]
+        [:li "Hiccup"]
+        [:li "Vega Lite"]
+        [:li "Leaflet"]
+        [:li "Column layout"]
+        [:li "Row layout"]]])
 
-      (literate/hiccup
-        [:span.p-2.text-lg "Vega Lite Widget"])
+    (l/hiccup
+      [:span.p-2.text-lg "Codemirror Widget"])
 
-      (literate/vega-lite
-        {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"
-         :description "A simple bar chart with embedded data."
-         :data {:url "https://vega.github.io/editor/data/stocks.csv"}
-         :transform [{"filter" "datum.symbol==='GOOG'"}]
-         :mark "line"
-         :encoding {:x {:field "date"
-                        :type "temporal"}
-                    :y {:field "price"
-                        :type "quantitative"}}})
+    (l/codemirror (slurp (io/resource "literate/client/core.clj")))
 
-      (literate/hiccup
-        [:span.p-2.text-lg "Code Widget"])
 
-      (literate/code (slurp (io/resource "literate/client/core.clj")))
+    (l/hiccup
+      [:span.p-2.text-lg "Vega Lite Widget"])
 
-      (literate/hiccup
-        [:span.p-2.text-lg "Leaflet Widget"])
-
-      (literate/leaflet {:style {:height "400px"}
-                         :center [51.505 -0.09]
-                         :zoom 10})))
+    (l/vega-lite
+      {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"
+       :description "A simple bar chart with embedded data."
+       :data {:url "https://vega.github.io/editor/data/stocks.csv"}
+       :transform [{"filter" "datum.symbol==='GOOG'"}]
+       :mark "line"
+       :encoding {:x {:field "date"
+                      :type "temporal"}
+                  :y {:field "price"
+                      :type "quantitative"}}}))
 
   )

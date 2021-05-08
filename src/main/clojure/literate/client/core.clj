@@ -17,15 +17,12 @@
     (.toString out)))
 
 (defn transact
-  "Sends a transact event to the client."
-  [client data]
+  "Transact Widgets."
+  [client & widgets]
   (http/post
     (str (:url client "http://localhost:8118") "/api/v1/transact")
     {:body
-     (transit-encode data)}))
-
-(defn view [client & widgets]
-  (transact client widgets))
+     (transit-encode widgets)}))
 
 (defn row
   "Returns a Row (horizontal) layout entity."
