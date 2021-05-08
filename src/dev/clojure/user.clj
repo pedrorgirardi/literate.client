@@ -4,6 +4,7 @@
             [clojure.data.json :as json]
 
             [org.httpkit.client :as http]
+            [hiccup.core :as hiccup]
 
             [literate.client.core :as literate]))
 
@@ -72,7 +73,7 @@
 
   (view
     (literate/html
-      (rum.server-render/render-static-markup
+      (hiccup/html
         [:div.bg-white.p-3
          [:h1.text-6xl "Hello from Hiccup"]
          [:span "Text"]])))

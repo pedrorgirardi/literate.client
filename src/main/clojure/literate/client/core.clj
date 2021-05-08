@@ -1,7 +1,7 @@
 (ns literate.client.core
   (:require [org.httpkit.client :as http]
             [cognitect.transit :as transit]
-            [rum.server-render])
+            [hiccup.core :as hiccup])
 
   (:import (java.util UUID)
            (java.io ByteArrayOutputStream)))
@@ -87,7 +87,7 @@
   [hiccup]
   {:widget/uuid (str (UUID/randomUUID))
    :widget/type :widget.type/html
-   :widget.html/src (rum.server-render/render-static-markup hiccup)})
+   :widget.html/src (hiccup/html hiccup)})
 
 (defn table
   "Returns a Table Widget entity."

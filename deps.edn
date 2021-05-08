@@ -2,10 +2,9 @@
 
  :deps
  {org.clojure/clojure {:mvn/version "1.11.0-alpha1"}
+  com.cognitect/transit-clj {:mvn/version "1.0.324"}
   http-kit/http-kit {:mvn/version "2.5.3"}
-  hiccup/hiccup {:mvn/version "1.0.5"}
-  rum/rum {:mvn/version "0.12.4" :exclusions [cljsjs/react cljsjs/react-dom]}
-  com.cognitect/transit-clj {:mvn/version "1.0.324"}}
+  hiccup/hiccup {:mvn/version "1.0.5"}}
 
  :aliases
  {:dev
