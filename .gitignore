@@ -4,3 +4,4 @@ node_modules/
 .cpcache/
 .nrepl-port
 .DS_Store
+literate.client.sublime-workspace
