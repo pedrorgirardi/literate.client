@@ -1,12 +1,13 @@
-(ns user
-  (:require [clojure.tools.namespace.repl :refer [refresh]]
-            [clojure.java.io :as io]
-            [clojure.data.json :as json]
+(ns dev
+  (:require
+   [clojure.tools.namespace.repl :refer [refresh]]
+   [clojure.java.io :as io]
+   [clojure.data.json :as json]
 
-            [org.httpkit.client :as http]
-            [hiccup.core :as hiccup]
+   [org.httpkit.client :as http]
+   [hiccup.core :as hiccup]
 
-            [literate.client.core :as l]))
+   [literate.client.core :as l]))
 
 ;; Use default client.
 (def l (partial l/transact nil))
