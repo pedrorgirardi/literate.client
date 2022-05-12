@@ -2,7 +2,7 @@
 
  :deps
  {org.clojure/clojure {:mvn/version "1.11.1"}
-  com.cognitect/transit-clj {:mvn/version "1.0.324"}
+  com.cognitect/transit-clj {:mvn/version "1.0.329"}
   http-kit/http-kit {:mvn/version "2.5.3"}
   hiccup/hiccup {:mvn/version "1.0.5"}}
 
