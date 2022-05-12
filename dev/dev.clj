@@ -2,12 +2,10 @@
   (:require
    [clojure.tools.namespace.repl :refer [refresh]]
    [clojure.java.io :as io]
-   [clojure.data.json :as json]
 
-   [org.httpkit.client :as http]
    [hiccup.core :as hiccup]
 
-   [literate.client.core :as l]))
+   [literate.client :as l]))
 
 ;; Use default client.
 (def l (partial l/transact nil))
@@ -40,7 +38,7 @@
 
   ;; -- Codemirror.
 
-  (l (l/codemirror (slurp (io/resource "literate/client/core.clj"))))
+  (l (l/codemirror (slurp (io/resource "literate/client.clj"))))
 
 
   ;; -- Markdown.
@@ -63,7 +61,7 @@
   (l
     (l/row
       {}
-      (l/codemirror (slurp (io/resource "literate/client/core.clj")))
+      (l/codemirror (slurp (io/resource "literate/client.clj")))
       (l/vega-lite
         {:description "A simple bar chart with embedded data."
          :data {:url "https://vega.github.io/editor/data/stocks.csv"}
@@ -80,7 +78,7 @@
   (l
     (l/column
       {}
-      (l/codemirror (slurp (io/resource "literate/client/core.clj")))
+      (l/codemirror (slurp (io/resource "literate/client.clj")))
       (l/vega-lite
         {"$schema" "https://vega.github.io/schema/vega-lite/v4.json"
          :description "A simple bar chart with embedded data."
@@ -123,7 +121,7 @@
     (l/hiccup
       [:span.p-2.text-lg "Codemirror Widget"])
 
-    (l/codemirror (slurp (io/resource "literate/client/core.clj")))
+    (l/codemirror (slurp (io/resource "literate/client.clj")))
 
 
     (l/hiccup
