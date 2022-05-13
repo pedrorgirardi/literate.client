@@ -4,6 +4,8 @@
    [cognitect.transit :as transit]
    [hiccup.core :as hiccup])
 
+  (:refer-clojure :exclude [spit])
+
   (:import
    (java.util UUID)
    (java.io ByteArrayOutputStream)))
@@ -25,6 +27,9 @@
     (str (:url client "http://localhost:8118") "/api/v1/transact")
     {:body
      (transit-encode widgets)}))
+
+(defn spit [f & widgets]
+  (clojure.core/spit f (transit-encode widgets)))
 
 (defn row
   "Returns a Row (horizontal) layout entity."
